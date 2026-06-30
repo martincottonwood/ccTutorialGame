@@ -32,6 +32,7 @@ class GameScene extends Phaser.Scene {
 
     this.createPaddle();
     this.setupInput();
+    this.createBall();
   }
 
   createPaddle() {
@@ -44,6 +45,20 @@ class GameScene extends Phaser.Scene {
   setupInput() {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.wasd = this.input.keyboard.addKeys({ left: 'A', right: 'D' });
+  }
+
+  createBall() {
+    this.ball = this.physics.add.image(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, 'ball');
+    this.ball.setBounce(1, 1);
+    this.ball.setCollideWorldBounds(true);
+    // Disable collision on the bottom wall so the ball falls through
+    this.physics.world.setBoundsCollision(true, true, true, false);
+    this.launchBall();
+  }
+
+  launchBall() {
+    const vx = (Math.random() < 0.5 ? 1 : -1) * BALL.speed * 0.5;
+    this.ball.body.setVelocity(vx, -BALL.speed);
   }
 
   update() {
