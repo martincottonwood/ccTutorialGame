@@ -33,6 +33,7 @@ class GameScene extends Phaser.Scene {
     this.createPaddle();
     this.setupInput();
     this.createBall();
+    this.setupColliders();
   }
 
   createPaddle() {
@@ -63,6 +64,13 @@ class GameScene extends Phaser.Scene {
 
   update() {
     this.movePaddle();
+  }
+
+  setupColliders() {
+    this.physics.add.collider(this.ball, this.paddle, () => {
+      Mechanics.handlePaddleBallCollision(this.ball, this.paddle);
+      Audio.playPaddleHit();
+    });
   }
 
   movePaddle() {
