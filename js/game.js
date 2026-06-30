@@ -24,9 +24,44 @@ class GameScene extends Phaser.Scene {
     brickGfx.destroy();
   }
 
-  create() {}
+  create() {
+    this.score = 0;
+    this.lives = 3;
+    this.gameOver = false;
+    this.ballResetting = false;
 
-  update() {}
+    this.createPaddle();
+    this.setupInput();
+  }
+
+  createPaddle() {
+    this.paddle = this.physics.add.image(CANVAS_WIDTH / 2, PADDLE.startY, 'paddle');
+    this.paddle.setImmovable(true);
+    this.paddle.body.allowGravity = false;
+    this.paddle.setCollideWorldBounds(true);
+  }
+
+  setupInput() {
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.wasd = this.input.keyboard.addKeys({ left: 'A', right: 'D' });
+  }
+
+  update() {
+    this.movePaddle();
+  }
+
+  movePaddle() {
+    const goLeft = this.cursors.left.isDown || this.wasd.left.isDown;
+    const goRight = this.cursors.right.isDown || this.wasd.right.isDown;
+
+    if (goLeft) {
+      this.paddle.setVelocityX(-PADDLE.speed);
+    } else if (goRight) {
+      this.paddle.setVelocityX(PADDLE.speed);
+    } else {
+      this.paddle.setVelocityX(0);
+    }
+  }
 }
 
 const config = {
