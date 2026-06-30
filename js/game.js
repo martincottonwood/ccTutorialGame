@@ -92,9 +92,30 @@ class GameScene extends Phaser.Scene {
   }
 
   showOverlay(title, titleColor) {
-    // Stub — replaced in Task 11
-    this.ball.body.setVelocity(0, 0);
-    console.log(`Game ended: ${title} | Final score: ${this.score}`);
+    this.add.rectangle(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT, 0x000000, 0.75);
+
+    this.add.text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 70, title, {
+      fontSize: '52px',
+      color: titleColor,
+      fontFamily: 'monospace',
+      fontStyle: 'bold'
+    }).setOrigin(0.5);
+
+    this.add.text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, `Score: ${this.score}`, {
+      fontSize: '28px',
+      color: '#ffffff',
+      fontFamily: 'monospace'
+    }).setOrigin(0.5);
+
+    const button = this.add.text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 70, '[ Play Again ]', {
+      fontSize: '24px',
+      color: '#ffffff',
+      fontFamily: 'monospace'
+    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+
+    button.on('pointerover', () => button.setStyle({ color: '#f4a261' }));
+    button.on('pointerout', () => button.setStyle({ color: '#ffffff' }));
+    button.on('pointerup', () => this.scene.restart());
   }
 
   loseLife() {
