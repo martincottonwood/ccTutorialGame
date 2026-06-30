@@ -12,7 +12,7 @@ class GameScene extends Phaser.Scene {
 
     const ballGfx = this.make.graphics({ add: false });
     ballGfx.fillStyle(COLORS.ball);
-    ballGfx.fillRect(0, 0, BALL.size, BALL.size);
+    ballGfx.fillCircle(BALL.size / 2, BALL.size / 2, BALL.size / 2);
     ballGfx.generateTexture('ball', BALL.size, BALL.size);
     ballGfx.destroy();
 
