@@ -22,5 +22,11 @@ const Mechanics = {
     );
   },
 
-  handleBrickCollision(scene, ball, brick) {}
+  handleBrickCollision(scene, ball, brick) {
+    brick.disableBody(true, true);
+    const row = brick.getData('row');
+    scene.addScore(BRICK_POINTS[row]);
+    Audio.playBrickHit();
+    scene.checkWin();
+  }
 };

@@ -106,6 +106,18 @@ class GameScene extends Phaser.Scene {
       Mechanics.handlePaddleBallCollision(this.ball, this.paddle);
       Audio.playPaddleHit();
     });
+
+    this.physics.add.collider(this.ball, this.bricks, (ball, brick) => {
+      Mechanics.handleBrickCollision(this, ball, brick);
+    });
+  }
+
+  checkWin() {
+    if (this.bricks.countActive(true) === 0) {
+      this.gameOver = true;
+      Audio.playWin();
+      this.showOverlay('YOU WIN!', '#2ecc71');
+    }
   }
 
   movePaddle() {
