@@ -31,6 +31,7 @@ class GameScene extends Phaser.Scene {
     this.ballResetting = false;
 
     this.createBricks();
+    this.createHUD();
     this.createPaddle();
     this.setupInput();
     this.createBall();
@@ -77,6 +78,23 @@ class GameScene extends Phaser.Scene {
         brick.refreshBody();
       }
     }
+  }
+
+  createHUD() {
+    const style = { fontSize: '16px', color: '#ffffff', fontFamily: 'monospace' };
+    this.scoreText = this.add.text(10, 10, 'Score: 0', style);
+    this.livesText = this.add.text(CANVAS_WIDTH - 10, 10, 'Lives: 3', style).setOrigin(1, 0);
+  }
+
+  addScore(points) {
+    this.score += points;
+    this.scoreText.setText(`Score: ${this.score}`);
+  }
+
+  showOverlay(title, titleColor) {
+    // Stub — replaced in Task 11
+    this.ball.body.setVelocity(0, 0);
+    console.log(`Game ended: ${title} | Final score: ${this.score}`);
   }
 
   update() {
