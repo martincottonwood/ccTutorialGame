@@ -97,8 +97,34 @@ class GameScene extends Phaser.Scene {
     console.log(`Game ended: ${title} | Final score: ${this.score}`);
   }
 
+  loseLife() {
+    this.ballResetting = true;
+    this.lives--;
+    this.livesText.setText(`Lives: ${this.lives}`);
+
+    if (this.lives <= 0) {
+      this.gameOver = true;
+      this.ball.setVisible(false);
+      Audio.playLose();
+      this.showOverlay('GAME OVER', '#e63946');
+      return;
+    }
+
+    this.ball.setPosition(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+    this.ball.body.setVelocity(0, 0);
+
+    this.time.delayedCall(1000, () => {
+      this.launchBall();
+      this.ballResetting = false;
+    });
+  }
+
   update() {
     this.movePaddle();
+
+    if (!this.gameOver && !this.ballResetting && this.ball.y > CANVAS_HEIGHT + 20) {
+      this.loseLife();
+    }
   }
 
   setupColliders() {
