@@ -4,7 +4,8 @@ const CANVAS_HEIGHT = 640;
 const COLORS = {
   paddle: 0xcccccc,
   ball: 0xffffff,
-  brickRows: [0xe63946, 0xf4a261, 0xe9c46a, 0x2a9d8f, 0x264653]
+  border: 0x4488cc,
+  brickRows: [0xe63946, 0xf4a261, 0xe9c46a, 0x27ae60, 0x264653]
 };
 
 // Points awarded per row hit, top to bottom

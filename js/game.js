@@ -30,6 +30,7 @@ class GameScene extends Phaser.Scene {
     this.gameOver = false;
     this.ballResetting = false;
 
+    this.createBorder();
     this.createBricks();
     this.createHUD();
     this.createPaddle();
@@ -62,6 +63,12 @@ class GameScene extends Phaser.Scene {
   launchBall() {
     const vx = (Math.random() < 0.5 ? 1 : -1) * BALL.speed * 0.5;
     this.ball.body.setVelocity(vx, -BALL.speed);
+  }
+
+  createBorder() {
+    const g = this.add.graphics();
+    g.lineStyle(2, COLORS.border, 1);
+    g.strokeRect(1, 1, CANVAS_WIDTH - 2, CANVAS_HEIGHT - 2);
   }
 
   createBricks() {
